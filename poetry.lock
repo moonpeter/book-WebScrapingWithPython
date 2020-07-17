@@ -32,8 +32,16 @@ optional = false
 python-versions = "*"
 version = "1.9.6"
 
+[[package]]
+category = "main"
+description = "An API and command-line toolset for Twitter (twitter.com)"
+name = "twitter"
+optional = false
+python-versions = "*"
+version = "1.18.0"
+
 [metadata]
-content-hash = "6c4a3eb94c3ca9685f4f42f55ae678df4cbe41026773efa9df668f7c155337b7"
+content-hash = "3b5666aa0fa14a2518838ea34e0a36381bd680a023603f7c4ca3cdba7e6d54bc"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -48,4 +56,8 @@ bs4 = [
 soupsieve = [
     {file = "soupsieve-1.9.6-py2.py3-none-any.whl", hash = "sha256:feb1e937fa26a69e08436aad4a9037cd7e1d4c7212909502ba30701247ff8abd"},
     {file = "soupsieve-1.9.6.tar.gz", hash = "sha256:7985bacc98c34923a439967c1a602dc4f1e15f923b6fcf02344184f86cc7efaa"},
+]
+twitter = [
+    {file = "twitter-1.18.0-py2.py3-none-any.whl", hash = "sha256:52545fd3b70d3d3807d3ce62d1a256727856d784d1630d64dedcc643aaf0b908"},
+    {file = "twitter-1.18.0.tar.gz", hash = "sha256:acdc85e5beea752967bb64c63bde8b915c49a31a01db1b2fecccf9f2c1d5c44d"},
 ]

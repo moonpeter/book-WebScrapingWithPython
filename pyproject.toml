@@ -7,6 +7,7 @@ authors = ["moonpeter <moonpeter@kakao.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 bs4 = "^0.0.1"
+twitter = "^1.18.0"
 
 [tool.poetry.dev-dependencies]
 
