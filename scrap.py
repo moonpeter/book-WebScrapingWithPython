@@ -1,3 +1,5 @@
+import json
+from urllib.error import HTTPError
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import datetime
@@ -6,10 +8,12 @@ import re
 
 random.seed(datetime.datetime.now())
 
+
 def getLinks(articleUrl):
     html = urlopen("http://en.wikipedia.org"+articleUrl)
     bsObj = BeautifulSoup(html, "html.parser")
     return bsObj.find("div", {"id":"bodyContent"}).findAll("a", href=re.compile("^(/wiki/)((?!:).)*$"))
+
 
 def getHistory(pageUrl):
     # 개정 내역 페이지 URL은 다음과 같은 형식입니다.
@@ -27,6 +31,17 @@ def getHistory(pageUrl):
         addressList.add(ipAddresses.get_text())
     return addressList
 
+
+def getCountry(ipAddress):
+    try:
+        response = urlopen("http://freegeoip.net/json/"+ipAddress).read().decode('utf-8')
+
+    except HTTPError:
+        return None
+    responseJson = json.loads(response)
+    return responseJson.get("country_code")
+
+
 links = getLinks("/wiki/Python_(programming_language)")
 
 while(len(links) > 0):
@@ -34,7 +49,9 @@ while(len(links) > 0):
         print("------------------")
         historyIPs = getHistory(link.attrs["href"])
         for historyIP in historyIPs:
-            print(historyIP)
+            country = getCountry(historyIP)
+            if country is not None:
+                print(historyIP+" is from "+country)
 
     newLink = links[random.randint(0, len(links)-1)].attrs["href"]
     links = getLinks(newLink)
