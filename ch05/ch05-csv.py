@@ -1,6 +1,6 @@
 import csv
 
-csvFile = open("~/projects/self/book-WebScrapingWithPython/test.csv", 'w+')
+csvFile = open("/test.csv", 'w+')
 try:
     writer = csv.writer(csvFile)
     writer.writerow(('number', 'number plus 2', 'number times 2'))
