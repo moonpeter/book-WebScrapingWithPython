@@ -8,6 +8,8 @@ authors = ["moonpeter <moonpeter@kakao.com>"]
 python = "^3.7"
 bs4 = "^0.0.1"
 twitter = "^1.18.0"
+pymysql = "^0.10.0"
+cryptography = "^3.0"
 
 [tool.poetry.dev-dependencies]
 
