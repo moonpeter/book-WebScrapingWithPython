@@ -8,32 +8,55 @@ import pymysql
 conn = pymysql.connect(host='localhost', user='root', password='', db='mysql', charset='utf8')
 
 cur = conn.cursor()
-cur.execute("USE scraping")
-
-random.seed(datetime.datetime.now())
+cur.execute("USE wikipedia")
 
 
-def store(title, content):
-    cur.execute(
-        "INSERT INTO pages (title, content) VALUES (\"%s\", \"%s\")", (title, content))
-    cur.connection.commit()
+def pageScraped(url):
+    cur.execute("SELECT * FROM pages WHERE url = %s", (url))
+    if cur.rowcount == 0:
+        return False
+    page = cur.fetchone()
+
+    cur.execute("SELECT * FROM links WHERE fromPageId = %s", (int(page[0])))
+    if cur.rowcount == 0:
+        return False
+    return True
 
 
-def getLinks(articleUrl):
-    html = urlopen("http://en.wikipedia.org" + articleUrl)
+def insertPageIfNotExists(url):
+    cur.execute("SELECT * FROM pages WHERE url = %s", (url))
+    if cur.rowcount == 0:
+        cur.execute("INSERT INTO pages (url) VALUES (%s)", (url))
+        conn.commit()
+        return cur.lastrowid
+    else:
+        return cur.fetchone()[0]
+
+
+def insertLink(fromPageId, toPageId):
+    cur.execute("SELECT * FROM links WHERE fromPageId = %s AND toPageId = %s", (int(fromPageId), int(toPageId)))
+    if cur.rowcount == 0:
+        cur.execute("INSERT INTO links (fromPageId, toPageId) VALUES (%s, %s)", (int(fromPageId), int(toPageId)))
+        conn.commit()
+
+
+def getLinks(pageUrl, recursionLevel):
+    global pages
+    if recursionLevel > 4:
+        return
+    pageId = insertPageIfNotExists(pageUrl)
+    html = urlopen("http://en.wikipedia.org" + pageUrl)
     bsObj = BeautifulSoup(html, "html.parser")
-    title = bsObj.find("h1").get_text()
-    content = bsObj.find("div", {"id": "mw-content-text"}).find("p").get_text()
-    store(title, content)
-    return bsObj.find("div", {"id": "bodyContent"}).findAll("a", href=re.compile("^(/wiki/)((?!:).)*$"))
+    for link in bsObj.findAll("a", href=re.compile("^(/wiki/)((?!:).)*$")):
+        insertLink(pageId, insertPageIfNotExists(link.attrs['href']))
+        if not pageScraped(link.attrs['href']):
+            # 새 페이지를 만났으니 추가하고 링크를 검색합니다.
+            newPage = link.attrs['href']
+            print(newPage)
+            getLinks(newPage, recursionLevel+1)
+        else:
+            print("Skipping: " + str(link.attrs['href']) + " found on " + pageUrl)
 
-
-links = getLinks("/wiki/Kevin_Bacon")
-try:
-    while len(links) > 0:
-        newArticle = links[random.randint(0, len(links) - 1)].attrs["href"]
-        print(newArticle)
-        links = getLinks(newArticle)
-finally:
-    cur.close()
-    conn.close()
+getLinks("/wiki/Kevin_Bacon", 0)
+cur.close()
+conn.close()
