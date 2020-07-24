@@ -57,11 +57,22 @@ test = ["pytest (>=3.6.0,<3.9.0 || >3.9.0,<3.9.1 || >3.9.1,<3.9.2 || >3.9.2)", "
 
 [[package]]
 category = "main"
-description = "Standalone email package"
-name = "email"
+description = "Forked from original pdfminer"
+name = "pdfminer3k"
+optional = false
+python-versions = ">=3.6"
+version = "1.3.4"
+
+[package.dependencies]
+ply = "*"
+
+[[package]]
+category = "main"
+description = "Python Lex & Yacc"
+name = "ply"
 optional = false
 python-versions = "*"
-version = "4.0.2"
+version = "3.11"
 
 [[package]]
 category = "main"
@@ -108,7 +119,7 @@ python-versions = "*"
 version = "1.18.0"
 
 [metadata]
-content-hash = "3ba273c0ffd39f624515795ac28032cc0d242f87e5f2fd67777ac36307c36b5f"
+content-hash = "95d73ae7bd8dd58635d913cfb2212e83e5d58a1b431e6345ef7c355eb19f4046"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -171,10 +182,13 @@ cryptography = [
     {file = "cryptography-3.0-cp38-cp38-win_amd64.whl", hash = "sha256:bea0b0468f89cdea625bb3f692cd7a4222d80a6bdafd6fb923963f2b9da0e15f"},
     {file = "cryptography-3.0.tar.gz", hash = "sha256:8e924dbc025206e97756e8903039662aa58aa9ba357d8e1d8fc29e3092322053"},
 ]
-email = [
-    {file = "email-4.0.2-py2.4.egg", hash = "sha256:d7e284933373a49592b90594bd3308136fca21bc3f3c8c5b87f36c6b5fb5af99"},
-    {file = "email-4.0.2-py2.5.egg", hash = "sha256:6b204a3f1adad013f911753ee71bc7b04a2565ac9c512e5db41da0e450228aab"},
-    {file = "email-4.0.2.tar.gz", hash = "sha256:e2254c9b4e4cf33553f7dfc85b500eea4c3e96733736f38c9dbfc3dcc6303705"},
+pdfminer3k = [
+    {file = "pdfminer3k-1.3.4-py3-none-any.whl", hash = "sha256:7b669a36b1c4c66aa2d66519c800285659dac5a31e8fa760c13977b16218e5e0"},
+    {file = "pdfminer3k-1.3.4.tar.gz", hash = "sha256:ba3e43d4d800d434442687c88b3391b09d136acafd00304963a1386de294d4c6"},
+]
+ply = [
+    {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
+    {file = "ply-3.11.tar.gz", hash = "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"},
 ]
 pycparser = [
     {file = "pycparser-2.20-py2.py3-none-any.whl", hash = "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"},
