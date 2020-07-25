@@ -6,7 +6,11 @@ url = "https://naver.com"
 html = urllib.request.urlopen(url)
 
 bs_obj = bs4.BeautifulSoup(html, "html.parser")
-top_right = bs_obj.find("div", {"class": "service_area"})
-first_a = top_right.find("a")
+ul = bs_obj.find("ul", {"class": "list_nav type_fix"})
 
-print(first_a.text)
+lis = ul.findAll("li")
+
+for li in lis:
+    a_tag = li.find("a")
+    # print(a_tag)
+    print(a_tag.text)
