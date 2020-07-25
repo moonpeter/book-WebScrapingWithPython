@@ -1,9 +1,12 @@
 import urllib.request
+
 import bs4
 
 url = "https://naver.com"
 html = urllib.request.urlopen(url)
 
 bs_obj = bs4.BeautifulSoup(html, "html.parser")
+top_right = bs_obj.find("div", {"class": "service_area"})
+first_a = top_right.find("a")
 
-print(bs_obj)
+print(first_a.text)
