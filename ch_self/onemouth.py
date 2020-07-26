@@ -11,3 +11,6 @@ strong = div.findAll("strong")
 
 for s_tag in strong:
     print(s_tag.text)
+    print(s_tag.text)
+    print(s_tag.text)
+    print(s_tag.text)
