@@ -22,8 +22,10 @@ def webtoon(url):
         print('title : ' + titles[i].text)
         print('links : ' + 'https://comic.naver.com' + hrefs[i])
         print('image : ' + imgs[i])
-        i += 1
 
 
 webtoon('https://comic.naver.com/webtoon/list.nhn?titleId=602910&weekday=mon')
 webtoon('https://comic.naver.com/webtoon/list.nhn?titleId=602910&weekday=mon&page=2')
+webtoon('https://comic.naver.com/webtoon/list.nhn?titleId=602910&weekday=mon&page=3')
+webtoon('https://comic.naver.com/webtoon/list.nhn?titleId=602910&weekday=mon&page=4')
+webtoon('https://comic.naver.com/webtoon/list.nhn?titleId=602910&weekday=mon&page=5')
